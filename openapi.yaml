@@ -1,0 +1,210 @@
+openapi: 3.0.0
+info:
+  title: Vet AI Assistant — AI Service API
+  version: 1.0.0
+  description: >
+    API для взаимодействия Backend <-> AI Service.
+    Эндпоинт принимает описание случая (текст / фото / анализы) и
+    возвращает предварительную аналитику по состоянию питомца.
+    MVP покрывает 3-5 распространённых болезней кошек.
+
+servers:
+  - url: https://ai-service.internal.vetassistant.app/v1
+
+paths:
+  /get_recommendation:
+    post:
+      summary: Получить предварительную рекомендацию по состоянию питомца
+      operationId: getRecommendation
+      tags:
+        - Recommendation
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/RecommendationRequest"
+            examples:
+              textOnly:
+                summary: Только текстовое описание
+                value:
+                  session_id: "a1b2c3d4"
+                  pet:
+                    species: "cat"
+                    age_months: 18
+                    breed: "British Shorthair"
+                  input_type: "text"
+                  symptoms_text: "Кот вялый второй день, не ест, рвота дважды утром"
+              withMedia:
+                summary: Текст + фото
+                value:
+                  session_id: "a1b2c3d4"
+                  pet:
+                    species: "cat"
+                    age_months: 18
+                  input_type: "text_and_media"
+                  symptoms_text: "Покраснение на лапе, кот вылизывает место"
+                  media_urls:
+                    - "https://storage.vetassistant.app/uploads/photo_123.jpg"
+      responses:
+        "200":
+          description: Успешный ответ с предварительной аналитикой
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RecommendationResponse"
+              example:
+                session_id: "a1b2c3d4"
+                possible_conditions:
+                  - name: "Острый гастрит"
+                    confidence: 0.62
+                    description: "Раздражение слизистой ЖКТ, часто связано с изменением рациона"
+                  - name: "Инородное тело в ЖКТ"
+                    confidence: 0.21
+                    description: "Требует исключения при повторной рвоте и отказе от еды"
+                recommendations:
+                  - "Обеспечить доступ к воде малыми порциями"
+                  - "Исключить корм на 12 часов, затем лёгкая диета"
+                  - "При отсутствии улучшений в течение 24 часов — очная консультация ветврача"
+                urgency_level: "moderate"
+                disclaimer: "Это предварительная аналитика, не заменяет очный осмотр ветеринарного врача"
+                sources:
+                  - title: "Протокол диагностики острого гастрита у кошек"
+                    url: "https://vet-protocols.example.org/feline-gastritis"
+        "400":
+          description: Некорректный запрос (не хватает обязательных полей)
+          content:
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetails"
+              example:
+                type: "https://vetassistant.app/errors/missing-field"
+                title: "Missing required field"
+                detail: "Поле 'symptoms_text' обязательно при input_type='text'"
+                instance: "/get_recommendation"
+        "422":
+          description: Недостаточно данных для формирования рекомендации (например, фото нечитаемо)
+          content:
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetails"
+              example:
+                type: "https://vetassistant.app/errors/insufficient-data"
+                title: "Insufficient data"
+                detail: "Не удалось распознать содержимое загруженного изображения"
+                instance: "/get_recommendation"
+        "500":
+          description: Внутренняя ошибка сервиса (например, недоступен LLM Provider)
+          content:
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetails"
+              example:
+                type: "https://vetassistant.app/errors/upstream-unavailable"
+                title: "Upstream service unavailable"
+                detail: "LLM Provider не ответил за отведённое время (timeout 5s)"
+                instance: "/get_recommendation"
+
+components:
+  schemas:
+    RecommendationRequest:
+      type: object
+      required:
+        - session_id
+        - pet
+        - input_type
+      properties:
+        session_id:
+          type: string
+          description: Идентификатор сессии/обращения
+          example: "a1b2c3d4"
+        pet:
+          type: object
+          required: [species]
+          properties:
+            species:
+              type: string
+              enum: [cat, dog]
+            age_months:
+              type: integer
+              example: 18
+            breed:
+              type: string
+              example: "British Shorthair"
+        input_type:
+          type: string
+          enum: [text, media, lab_results, text_and_media]
+          description: Тип входных данных для этого запроса
+        symptoms_text:
+          type: string
+          description: Словесное описание симптомов (обязательно, если input_type включает text)
+          example: "Кот вялый второй день, не ест, рвота дважды утром"
+        media_urls:
+          type: array
+          items:
+            type: string
+            format: uri
+          description: Ссылки на загруженные фото/видео
+        lab_results:
+          type: object
+          description: Структурированные или распознанные показатели анализов
+          additionalProperties: true
+
+    RecommendationResponse:
+      type: object
+      required:
+        - session_id
+        - possible_conditions
+        - urgency_level
+        - disclaimer
+      properties:
+        session_id:
+          type: string
+        possible_conditions:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+              confidence:
+                type: number
+                format: float
+                minimum: 0
+                maximum: 1
+              description:
+                type: string
+        recommendations:
+          type: array
+          items:
+            type: string
+        urgency_level:
+          type: string
+          enum: [low, moderate, high, emergency]
+          description: Насколько срочно нужен очный осмотр
+        disclaimer:
+          type: string
+        sources:
+          type: array
+          items:
+            type: object
+            properties:
+              title:
+                type: string
+              url:
+                type: string
+                format: uri
+
+    ProblemDetails:
+      type: object
+      description: Формат ошибок по RFC 7807
+      properties:
+        type:
+          type: string
+          format: uri
+        title:
+          type: string
+        detail:
+          type: string
+        instance:
+          type: string
