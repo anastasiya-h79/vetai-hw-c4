@@ -1,4 +1,4 @@
-# Vet AI Assistant — ДЗ по C4 Model (вариант Draw.io + VS Code + GitHub)
+# Vet AI Assistant — ДЗ по C4 Model 
 
 ## Файлы
 
