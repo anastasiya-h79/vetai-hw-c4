@@ -1,4 +1,4 @@
-# Vet AI Assistant — ДЗ по C4 Model 
+# Vet AI Assistant — C4 Model 
 
 ## Файлы
 
