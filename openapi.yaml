@@ -1,12 +1,23 @@
 openapi: 3.0.0
 info:
   title: Vet AI Assistant — AI Service API
-  version: 1.0.0
+  version: 1.1.0
   description: >
     API для взаимодействия Backend <-> AI Service.
-    Эндпоинт принимает описание случая (текст / фото / анализы) и
-    возвращает предварительную аналитику по состоянию питомца.
+    Эндпоинт принимает описание случая (текст симптомов / структурированные
+    показатели анализов) и возвращает предварительную аналитику по состоянию питомца.
     MVP покрывает 3-5 распространённых болезней кошек.
+
+    ВАЖНО: этот эндпоинт вызывается Backend-ом ТОЛЬКО после того, как отдельный
+    Triage Service (правило-based, без LLM) проверил случай на "красные флаги"
+    (неотложные состояния) и не нашёл их. Если Triage Service обнаружил red flag,
+    Backend возвращает пользователю emergency-сообщение немедленно и AI Service
+    не вызывается вовсе — это сделано специально, чтобы неотложные случаи не
+    зависели от вероятностного вывода LLM.
+
+    Анализ фото/видео вынесен за пределы MVP (запланирован на следующую
+    итерацию) — точность распознавания по случайным телефонным фото пока
+    недостаточно надёжна для медицинского контекста.
 
 servers:
   - url: https://ai-service.internal.vetassistant.app/v1
@@ -35,17 +46,19 @@ paths:
                     breed: "British Shorthair"
                   input_type: "text"
                   symptoms_text: "Кот вялый второй день, не ест, рвота дважды утром"
-              withMedia:
-                summary: Текст + фото
+              withStructuredLab:
+                summary: Текст + структурированные показатели анализов
                 value:
                   session_id: "a1b2c3d4"
                   pet:
                     species: "cat"
                     age_months: 18
-                  input_type: "text_and_media"
-                  symptoms_text: "Покраснение на лапе, кот вылизывает место"
-                  media_urls:
-                    - "https://storage.vetassistant.app/uploads/photo_123.jpg"
+                  input_type: "text_and_lab_results"
+                  symptoms_text: "Кот вялый, снижен аппетит третий день"
+                  lab_results:
+                    hematocrit_percent: 28
+                    wbc_count_10e9_l: 18.2
+                    creatinine_umol_l: 210
       responses:
         "200":
           description: Успешный ответ с предварительной аналитикой
@@ -133,22 +146,32 @@ components:
               example: "British Shorthair"
         input_type:
           type: string
-          enum: [text, media, lab_results, text_and_media]
-          description: Тип входных данных для этого запроса
+          enum: [text, lab_results, text_and_lab_results]
+          description: >
+            Тип входных данных для этого запроса. Значения "media" и
+            "text_and_media" сознательно не включены — анализ фото/видео
+            вынесен за пределы MVP.
         symptoms_text:
           type: string
           description: Словесное описание симптомов (обязательно, если input_type включает text)
           example: "Кот вялый второй день, не ест, рвота дважды утром"
-        media_urls:
-          type: array
-          items:
-            type: string
-            format: uri
-          description: Ссылки на загруженные фото/видео
         lab_results:
           type: object
-          description: Структурированные или распознанные показатели анализов
-          additionalProperties: true
+          description: >
+            Структурированные показатели анализов, вводимые пользователем
+            вручную через форму в приложении (без автоматического
+            распознавания бланков — намеренное упрощение для MVP).
+          properties:
+            hematocrit_percent:
+              type: number
+              example: 28
+            wbc_count_10e9_l:
+              type: number
+              description: Лейкоциты, 10^9/л
+              example: 18.2
+            creatinine_umol_l:
+              type: number
+              example: 210
 
     RecommendationResponse:
       type: object

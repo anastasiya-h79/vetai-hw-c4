@@ -1,84 +1,98 @@
-<mxfile host="app.diagrams.net">
-  <diagram name="C2 - Containers" id="c2diagram">
-    <mxGraphModel dx="1400" dy="800" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1400" pageHeight="1000" math="0" shadow="0">
-      <root>
-        <mxCell id="0" />
-        <mxCell id="1" parent="0" />
-
-        <!-- People -->
-        <mxCell id="p1" value="Владелец питомца&lt;br&gt;&lt;i&gt;[Person]&lt;/i&gt;&lt;br&gt;Описывает симптомы, загружает фото/видео и анализы" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#08427b;strokeColor=#052E56;fontColor=#ffffff;fontSize=12;" vertex="1" parent="1">
-          <mxGeometry x="40" y="40" width="200" height="100" as="geometry" />
-        </mxCell>
-
-        <mxCell id="p2" value="Ветврач / Приют&lt;br&gt;&lt;i&gt;[Person]&lt;/i&gt;&lt;br&gt;Использует систему для предварительной аналитики" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#08427b;strokeColor=#052E56;fontColor=#ffffff;fontSize=12;" vertex="1" parent="1">
-          <mxGeometry x="320" y="40" width="200" height="100" as="geometry" />
-        </mxCell>
-
-        <!-- System boundary -->
-        <mxCell id="boundary" value="Vet AI Assistant" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#666666;dashed=1;verticalAlign=top;fontStyle=3;fontSize=14;" vertex="1" parent="1">
-          <mxGeometry x="20" y="200" width="800" height="560" as="geometry" />
-        </mxCell>
-
-        <!-- Containers -->
-        <mxCell id="c1" value="Mobile App&lt;br&gt;&lt;i&gt;[Container: Flutter / React Native]&lt;/i&gt;&lt;br&gt;Чат, загрузка фото/видео, анализов" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#1168bd;strokeColor=#0b4884;fontColor=#ffffff;fontSize=12;" vertex="1" parent="1">
-          <mxGeometry x="300" y="250" width="240" height="90" as="geometry" />
-        </mxCell>
-
-        <mxCell id="c2" value="API Gateway / Backend&lt;br&gt;&lt;i&gt;[Container: Python / FastAPI]&lt;/i&gt;&lt;br&gt;Оркестрация запросов, сессии, маршрутизация" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#1168bd;strokeColor=#0b4884;fontColor=#ffffff;fontSize=12;" vertex="1" parent="1">
-          <mxGeometry x="300" y="390" width="240" height="90" as="geometry" />
-        </mxCell>
-
-        <mxCell id="c3" value="AI Service&lt;br&gt;&lt;i&gt;[Container: Python Service]&lt;/i&gt;&lt;br&gt;Анализ симптомов/фото/анализов, генерация рекомендаций (RAG)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#1168bd;strokeColor=#0b4884;fontColor=#ffffff;fontSize=12;" vertex="1" parent="1">
-          <mxGeometry x="300" y="530" width="240" height="100" as="geometry" />
-        </mxCell>
-
-        <mxCell id="c4" value="Vector DB&lt;br&gt;&lt;i&gt;[Container: Qdrant / Milvus]&lt;/i&gt;&lt;br&gt;Эмбеддинги протоколов и симптомокомплексов" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fillColor=#438dd5;strokeColor=#2e6295;fontColor=#ffffff;fontSize=11;" vertex="1" parent="1">
-          <mxGeometry x="60" y="680" width="180" height="90" as="geometry" />
-        </mxCell>
-
-        <mxCell id="c5" value="SQL DB&lt;br&gt;&lt;i&gt;[Container: PostgreSQL]&lt;/i&gt;&lt;br&gt;Профили питомцев, история обращений" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fillColor=#438dd5;strokeColor=#2e6295;fontColor=#ffffff;fontSize=11;" vertex="1" parent="1">
-          <mxGeometry x="580" y="680" width="180" height="90" as="geometry" />
-        </mxCell>
-
-        <!-- External systems -->
-        <mxCell id="e1" value="LLM Provider&lt;br&gt;&lt;i&gt;[Software System]&lt;/i&gt;&lt;br&gt;Внешний API генерации текста/анализа изображений" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#999999;strokeColor=#6c6c6c;fontColor=#ffffff;fontSize=12;" vertex="1" parent="1">
-          <mxGeometry x="900" y="530" width="220" height="100" as="geometry" />
-        </mxCell>
-
-        <mxCell id="e2" value="Открытые ветеринарные источники&lt;br&gt;&lt;i&gt;[Software System]&lt;/i&gt;&lt;br&gt;Исследования, протоколы, рекомендации" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#999999;strokeColor=#6c6c6c;fontColor=#ffffff;fontSize=12;" vertex="1" parent="1">
-          <mxGeometry x="900" y="680" width="220" height="100" as="geometry" />
-        </mxCell>
-
-        <!-- Relationships -->
-        <mxCell id="r1" value="Открывает чат, пишет, загружает файлы" style="html=1;endArrow=block;fontSize=10;" edge="1" parent="1" source="p1" target="c1">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="r2" value="Использует для аналитики" style="html=1;endArrow=block;fontSize=10;" edge="1" parent="1" source="p2" target="c1">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="r3" value="Отправляет запрос [HTTPS/JSON]" style="html=1;endArrow=block;fontSize=10;" edge="1" parent="1" source="c1" target="c2">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="r4" value="Запрашивает диагностику [REST /get_recommendation]" style="html=1;endArrow=block;fontSize=10;" edge="1" parent="1" source="c2" target="c3">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="r5" value="Читает/пишет профиль и историю [SQL]" style="html=1;endArrow=block;fontSize=10;" edge="1" parent="1" source="c2" target="c5">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="r6" value="Ищет протоколы [gRPC]" style="html=1;endArrow=block;fontSize=10;" edge="1" parent="1" source="c3" target="c4">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="r7" value="Сохраняет результат [SQL]" style="html=1;endArrow=block;fontSize=10;" edge="1" parent="1" source="c3" target="c5">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="r8" value="Генерация ответа [External API]" style="html=1;endArrow=block;fontSize=10;" edge="1" parent="1" source="c3" target="e1">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="r9" value="Загрузка и эмбеддинг протоколов [ETL/REST]" style="html=1;endArrow=block;fontSize=10;" edge="1" parent="1" source="e2" target="c4">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-
-      </root>
-    </mxGraphModel>
-  </diagram>
+<mxfile host="65bd71144e">
+    <diagram name="C2 - Containers" id="c2diagram">
+        <mxGraphModel dx="807" dy="644" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1500" pageHeight="1050" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="p1" value="Владелец питомца&lt;br&gt;&lt;i&gt;[Person]&lt;/i&gt;&lt;br&gt;Описывает симптомы, вносит показатели анализов" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#08427b;strokeColor=#052E56;fontColor=#ffffff;fontSize=12;" parent="1" vertex="1">
+                    <mxGeometry x="40" y="40" width="200" height="100" as="geometry"/>
+                </mxCell>
+                <mxCell id="p2" value="Ветврач / Приют&lt;br&gt;&lt;i&gt;[Person]&lt;/i&gt;&lt;br&gt;Использует систему для предварительной аналитики" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#08427b;strokeColor=#052E56;fontColor=#ffffff;fontSize=12;" parent="1" vertex="1">
+                    <mxGeometry x="320" y="40" width="200" height="100" as="geometry"/>
+                </mxCell>
+                <mxCell id="boundary" value="Vet AI Assistant" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#666666;dashed=1;verticalAlign=top;fontStyle=3;fontSize=14;" parent="1" vertex="1">
+                    <mxGeometry x="20" y="200" width="1000" height="620" as="geometry"/>
+                </mxCell>
+                <mxCell id="c1" value="Mobile App&lt;br&gt;&lt;i&gt;[Container: Flutter / React Native]&lt;/i&gt;&lt;br&gt;Чат для симптомов + структурированная форма анализов" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#1168bd;strokeColor=#0b4884;fontColor=#ffffff;fontSize=12;" parent="1" vertex="1">
+                    <mxGeometry x="360" y="250" width="240" height="90" as="geometry"/>
+                </mxCell>
+                <mxCell id="c2" value="API Gateway / Backend&lt;br&gt;&lt;i&gt;[Container: Python / FastAPI]&lt;/i&gt;&lt;br&gt;Оркестрация запросов, сессии, маршрутизация" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#1168bd;strokeColor=#0b4884;fontColor=#ffffff;fontSize=12;" parent="1" vertex="1">
+                    <mxGeometry x="360" y="390" width="240" height="90" as="geometry"/>
+                </mxCell>
+                <mxCell id="triage" value="Triage Service&lt;br&gt;&lt;i&gt;[Container: Python, rule-based]&lt;/i&gt;&lt;br&gt;Проверка на &amp;quot;красные флаги&amp;quot; ДО обращения к AI. Без LLM, детерминированные правила." style="rounded=1;whiteSpace=wrap;html=1;fillColor=#c0392b;strokeColor=#8e2418;fontColor=#ffffff;fontSize=12;" parent="1" vertex="1">
+                    <mxGeometry x="660" y="390" width="260" height="100" as="geometry"/>
+                </mxCell>
+                <mxCell id="c3" value="AI Service&lt;br&gt;&lt;i&gt;[Container: Python Service]&lt;/i&gt;&lt;br&gt;RAG: анализ текстовых симптомов + структурированных анализов" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#1168bd;strokeColor=#0b4884;fontColor=#ffffff;fontSize=12;" parent="1" vertex="1">
+                    <mxGeometry x="360" y="540" width="240" height="100" as="geometry"/>
+                </mxCell>
+                <mxCell id="c4" value="Vector DB&lt;br&gt;&lt;i&gt;[Container: Qdrant / Milvus]&lt;/i&gt;&lt;br&gt;Эмбеддинги протоколов, проверенные ветврачом" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fillColor=#438dd5;strokeColor=#2e6295;fontColor=#ffffff;fontSize=11;" parent="1" vertex="1">
+                    <mxGeometry x="60" y="690" width="180" height="90" as="geometry"/>
+                </mxCell>
+                <mxCell id="c5" value="SQL DB&lt;br&gt;&lt;i&gt;[Container: PostgreSQL]&lt;/i&gt;&lt;br&gt;Профили питомцев, история обращений, лог red-flag случаев" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fillColor=#438dd5;strokeColor=#2e6295;fontColor=#ffffff;fontSize=11;" parent="1" vertex="1">
+                    <mxGeometry x="660" y="690" width="200" height="90" as="geometry"/>
+                </mxCell>
+                <mxCell id="e1" value="LLM Provider&lt;br&gt;&lt;i&gt;[Software System]&lt;/i&gt;&lt;br&gt;Внешний API генерации текста" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#999999;strokeColor=#6c6c6c;fontColor=#ffffff;fontSize=12;" parent="1" vertex="1">
+                    <mxGeometry x="1060" y="540" width="220" height="100" as="geometry"/>
+                </mxCell>
+                <mxCell id="e2" value="Открытые ветеринарные источники + ревью ветврача&lt;br&gt;&lt;i&gt;[Software System]&lt;/i&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#999999;strokeColor=#6c6c6c;fontColor=#ffffff;fontSize=12;" parent="1" vertex="1">
+                    <mxGeometry x="1060" y="690" width="220" height="100" as="geometry"/>
+                </mxCell>
+                <mxCell id="scope" value="Вне MVP: Media Controller (анализ фото/видео) — запланировано на следующую итерацию" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#999999;dashed=1;fontColor=#666666;fontSize=11;fontStyle=2;" parent="1" vertex="1">
+                    <mxGeometry x="40" y="540" width="260" height="70" as="geometry"/>
+                </mxCell>
+                <mxCell id="r1" value="Открывает чат, пишет, вносит показатели" style="html=1;endArrow=block;fontSize=10;" parent="1" source="p1" target="c1" edge="1">
+                    <mxGeometry x="-0.4596" y="-24" relative="1" as="geometry">
+                        <mxPoint as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="r2" value="Использует для аналитики" style="html=1;endArrow=block;fontSize=10;" parent="1" source="p2" target="c1" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="r3" value="Отправляет запрос [HTTPS/JSON]" style="html=1;endArrow=block;fontSize=10;" parent="1" source="c1" target="c2" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="r4" value="1. Проверяет на red flag [REST]" style="html=1;endArrow=block;fontSize=10;strokeColor=#c0392b;fontColor=#c0392b;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" parent="1" source="c2" target="triage" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="630" y="420"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="r5" value="2. Если не red flag — запрашивает диагностику [REST /get_recommendation]" style="html=1;endArrow=block;fontSize=10;" parent="1" source="c2" target="c3" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="r6" value="Читает/пишет профиль и историю [SQL]" style="html=1;endArrow=block;fontSize=10;" parent="1" source="c2" target="c5" edge="1">
+                    <mxGeometry x="0.0783" y="36" relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="610" y="580"/>
+                        </Array>
+                        <mxPoint as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="r7" value="Логирует критические случаи [SQL]" style="html=1;endArrow=block;fontSize=10;strokeColor=#c0392b;fontColor=#c0392b;" parent="1" source="triage" target="c5" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="r8" value="Ищет протоколы [gRPC]" style="html=1;endArrow=block;fontSize=10;" parent="1" source="c3" target="c4" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="r9" value="Сохраняет результат [SQL]" style="html=1;endArrow=block;fontSize=10;" parent="1" source="c3" target="c5" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="r10" value="Генерация ответа [External API]" style="html=1;endArrow=block;fontSize=10;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="599.9999999999998" y="600.0000000000002" as="sourcePoint"/>
+                        <mxPoint x="1060" y="600.0000000000002" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="r11" value="Загрузка проверенных протоколов [ETL/REST]" style="html=1;endArrow=block;fontSize=10;" parent="1" source="e2" target="c4" edge="1">
+                    <mxGeometry x="0.2683" relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="590" y="735"/>
+                        </Array>
+                        <mxPoint as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
 </mxfile>

@@ -1,98 +1,79 @@
-<mxfile host="app.diagrams.net">
-  <diagram name="C3 - AI Service Components" id="c3diagram">
-    <mxGraphModel dx="1400" dy="800" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1400" pageHeight="900" math="0" shadow="0">
-      <root>
-        <mxCell id="0" />
-        <mxCell id="1" parent="0" />
-
-        <!-- External boxes for context -->
-        <mxCell id="ext1" value="Backend&lt;br&gt;&lt;i&gt;[Container]&lt;/i&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#1168bd;strokeColor=#0b4884;fontColor=#ffffff;fontSize=12;" vertex="1" parent="1">
-          <mxGeometry x="40" y="360" width="160" height="70" as="geometry" />
-        </mxCell>
-
-        <mxCell id="ext2" value="Vector DB&lt;br&gt;&lt;i&gt;[Container]&lt;/i&gt;" style="shape=cylinder3;whiteSpace=wrap;html=1;fillColor=#438dd5;strokeColor=#2e6295;fontColor=#ffffff;fontSize=11;" vertex="1" parent="1">
-          <mxGeometry x="40" y="140" width="160" height="80" as="geometry" />
-        </mxCell>
-
-        <mxCell id="ext3" value="LLM Provider&lt;br&gt;&lt;i&gt;[Software System]&lt;/i&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#999999;strokeColor=#6c6c6c;fontColor=#ffffff;fontSize=12;" vertex="1" parent="1">
-          <mxGeometry x="1180" y="380" width="180" height="70" as="geometry" />
-        </mxCell>
-
-        <!-- Boundary -->
-        <mxCell id="boundary" value="AI Service" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#666666;dashed=1;verticalAlign=top;fontStyle=3;fontSize=14;" vertex="1" parent="1">
-          <mxGeometry x="260" y="60" width="880" height="620" as="geometry" />
-        </mxCell>
-
-        <!-- Components -->
-        <mxCell id="comp1" value="Text Symptom Controller&lt;br&gt;&lt;i&gt;[Component: FastAPI Router]&lt;/i&gt;&lt;br&gt;Принимает текстовое описание" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#85bbf0;strokeColor=#5b96d2;fontColor=#0a1a2b;fontSize=11;" vertex="1" parent="1">
-          <mxGeometry x="300" y="100" width="200" height="90" as="geometry" />
-        </mxCell>
-
-        <mxCell id="comp2" value="Media Controller&lt;br&gt;&lt;i&gt;[Component: FastAPI Router]&lt;/i&gt;&lt;br&gt;Принимает и предобрабатывает фото/видео" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#85bbf0;strokeColor=#5b96d2;fontColor=#0a1a2b;fontSize=11;" vertex="1" parent="1">
-          <mxGeometry x="300" y="220" width="200" height="90" as="geometry" />
-        </mxCell>
-
-        <mxCell id="comp3" value="Lab Results Controller&lt;br&gt;&lt;i&gt;[Component: FastAPI Router]&lt;/i&gt;&lt;br&gt;Принимает и парсит анализы" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#85bbf0;strokeColor=#5b96d2;fontColor=#0a1a2b;fontSize=11;" vertex="1" parent="1">
-          <mxGeometry x="300" y="340" width="200" height="90" as="geometry" />
-        </mxCell>
-
-        <mxCell id="comp4" value="RAG Manager&lt;br&gt;&lt;i&gt;[Component: Python]&lt;/i&gt;&lt;br&gt;Ищет контекст в Vector DB, собирает его" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#85bbf0;strokeColor=#5b96d2;fontColor=#0a1a2b;fontSize=11;" vertex="1" parent="1">
-          <mxGeometry x="560" y="220" width="200" height="90" as="geometry" />
-        </mxCell>
-
-        <mxCell id="comp5" value="Prompt Template Factory&lt;br&gt;&lt;i&gt;[Component: Python]&lt;/i&gt;&lt;br&gt;Строит промпт под сценарий + контекст" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#85bbf0;strokeColor=#5b96d2;fontColor=#0a1a2b;fontSize=11;" vertex="1" parent="1">
-          <mxGeometry x="820" y="220" width="200" height="90" as="geometry" />
-        </mxCell>
-
-        <mxCell id="comp6" value="LLM Client&lt;br&gt;&lt;i&gt;[Component: Python]&lt;/i&gt;&lt;br&gt;Ретраи, таймауты, подсчёт токенов" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#85bbf0;strokeColor=#5b96d2;fontColor=#0a1a2b;fontSize=11;" vertex="1" parent="1">
-          <mxGeometry x="1040" y="220" width="200" height="90" as="geometry" />
-        </mxCell>
-
-        <mxCell id="comp7" value="Diagnosis Aggregator&lt;br&gt;&lt;i&gt;[Component: Python]&lt;/i&gt;&lt;br&gt;Собирает финальную рекомендацию + дисклеймер" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#85bbf0;strokeColor=#5b96d2;fontColor=#0a1a2b;fontSize=11;" vertex="1" parent="1">
-          <mxGeometry x="560" y="400" width="200" height="90" as="geometry" />
-        </mxCell>
-
-        <!-- Relationships -->
-        <mxCell id="cr1" value="Пишет о симптомах" style="html=1;endArrow=block;fontSize=10;" edge="1" parent="1" source="ext1" target="comp1">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="cr2" value="Загружает фото/видео" style="html=1;endArrow=block;fontSize=10;" edge="1" parent="1" source="ext1" target="comp2">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="cr3" value="Загружает анализы" style="html=1;endArrow=block;fontSize=10;" edge="1" parent="1" source="ext1" target="comp3">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-
-        <mxCell id="cr4" value="Передаёт симптомы" style="html=1;endArrow=block;fontSize=10;" edge="1" parent="1" source="comp1" target="comp4">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="cr5" value="Передаёт результат обработки фото" style="html=1;endArrow=block;fontSize=10;" edge="1" parent="1" source="comp2" target="comp4">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="cr6" value="Передаёт показатели анализов" style="html=1;endArrow=block;fontSize=10;" edge="1" parent="1" source="comp3" target="comp4">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-
-        <mxCell id="cr7" value="1. Semantic search [gRPC]" style="html=1;endArrow=block;fontSize=10;" edge="1" parent="1" source="comp4" target="ext2">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="cr8" value="2. Передаёт контекст" style="html=1;endArrow=block;fontSize=10;" edge="1" parent="1" source="comp4" target="comp5">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="cr9" value="3. Передаёт готовый промпт" style="html=1;endArrow=block;fontSize=10;" edge="1" parent="1" source="comp5" target="comp6">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="cr10" value="4. Запрос генерации [External API]" style="html=1;endArrow=block;fontSize=10;" edge="1" parent="1" source="comp6" target="ext3">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="cr11" value="5. Возвращает сырой ответ" style="html=1;endArrow=block;fontSize=10;" edge="1" parent="1" source="comp6" target="comp7">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="cr12" value="6. Возвращает итоговую рекомендацию" style="html=1;endArrow=block;fontSize=10;" edge="1" parent="1" source="comp7" target="ext1">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-
-      </root>
-    </mxGraphModel>
-  </diagram>
+<mxfile host="65bd71144e">
+    <diagram name="C3 - AI Service Components" id="c3diagram">
+        <mxGraphModel dx="686" dy="547" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1400" pageHeight="900" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="ext1" value="Backend&lt;br&gt;&lt;i&gt;[Container]&lt;/i&gt;&lt;br&gt;(запрос сюда только если Triage Service не нашёл red flag)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#1168bd;strokeColor=#0b4884;fontColor=#ffffff;fontSize=11;" parent="1" vertex="1">
+                    <mxGeometry x="40" y="360" width="180" height="90" as="geometry"/>
+                </mxCell>
+                <mxCell id="ext2" value="Vector DB&lt;br&gt;&lt;i&gt;[Container]&lt;/i&gt;" style="shape=cylinder3;whiteSpace=wrap;html=1;fillColor=#438dd5;strokeColor=#2e6295;fontColor=#ffffff;fontSize=11;" parent="1" vertex="1">
+                    <mxGeometry x="40" y="140" width="160" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="ext3" value="LLM Provider&lt;br&gt;&lt;i&gt;[Software System]&lt;/i&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#999999;strokeColor=#6c6c6c;fontColor=#ffffff;fontSize=12;" parent="1" vertex="1">
+                    <mxGeometry x="1180" y="380" width="180" height="70" as="geometry"/>
+                </mxCell>
+                <mxCell id="boundary" value="AI Service" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#666666;dashed=1;verticalAlign=top;fontStyle=3;fontSize=14;" parent="1" vertex="1">
+                    <mxGeometry x="260" y="60" width="880" height="620" as="geometry"/>
+                </mxCell>
+                <mxCell id="comp1" value="Text Symptom Controller&lt;br&gt;&lt;i&gt;[Component: FastAPI Router]&lt;/i&gt;&lt;br&gt;Принимает текстовое описание" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#85bbf0;strokeColor=#5b96d2;fontColor=#0a1a2b;fontSize=11;" parent="1" vertex="1">
+                    <mxGeometry x="300" y="120" width="200" height="90" as="geometry"/>
+                </mxCell>
+                <mxCell id="comp3" value="Structured Lab Data Handler&lt;br&gt;&lt;i&gt;[Component: FastAPI Router]&lt;/i&gt;&lt;br&gt;Принимает заполненную форму показателей (без OCR)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#85bbf0;strokeColor=#5b96d2;fontColor=#0a1a2b;fontSize=11;" parent="1" vertex="1">
+                    <mxGeometry x="300" y="280" width="200" height="90" as="geometry"/>
+                </mxCell>
+                <mxCell id="scope" value="Media Controller (фото/видео)&lt;br&gt;— вне MVP, следующая итерация" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#999999;dashed=1;fontColor=#888888;fontSize=10;fontStyle=2;" parent="1" vertex="1">
+                    <mxGeometry x="300" y="440" width="200" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="comp4" value="RAG Manager&lt;br&gt;&lt;i&gt;[Component: Python]&lt;/i&gt;&lt;br&gt;Ищет контекст в Vector DB, собирает его" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#85bbf0;strokeColor=#5b96d2;fontColor=#0a1a2b;fontSize=11;" parent="1" vertex="1">
+                    <mxGeometry x="560" y="200" width="200" height="90" as="geometry"/>
+                </mxCell>
+                <mxCell id="comp5" value="Prompt Template Factory&lt;br&gt;&lt;i&gt;[Component: Python]&lt;/i&gt;&lt;br&gt;Строит промпт под сценарий + контекст" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#85bbf0;strokeColor=#5b96d2;fontColor=#0a1a2b;fontSize=11;" parent="1" vertex="1">
+                    <mxGeometry x="820" y="200" width="200" height="90" as="geometry"/>
+                </mxCell>
+                <mxCell id="comp6" value="LLM Client&lt;br&gt;&lt;i&gt;[Component: Python]&lt;/i&gt;&lt;br&gt;Ретраи, таймауты, подсчёт токенов" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#85bbf0;strokeColor=#5b96d2;fontColor=#0a1a2b;fontSize=11;" parent="1" vertex="1">
+                    <mxGeometry x="1040" y="200" width="200" height="90" as="geometry"/>
+                </mxCell>
+                <mxCell id="comp7" value="Diagnosis Aggregator&lt;br&gt;&lt;i&gt;[Component: Python]&lt;/i&gt;&lt;br&gt;Собирает финальную рекомендацию + дисклеймер" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#85bbf0;strokeColor=#5b96d2;fontColor=#0a1a2b;fontSize=11;" parent="1" vertex="1">
+                    <mxGeometry x="560" y="400" width="200" height="90" as="geometry"/>
+                </mxCell>
+                <mxCell id="cr1" value="Пишет о симптомах" style="html=1;endArrow=block;fontSize=10;" parent="1" source="ext1" target="comp1" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="cr3" value="Отправляет форму анализов" style="html=1;endArrow=block;fontSize=10;" parent="1" source="ext1" target="comp3" edge="1">
+                    <mxGeometry x="0.0441" y="6" relative="1" as="geometry">
+                        <mxPoint as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="cr4" value="Передаёт симптомы" style="html=1;endArrow=block;fontSize=10;" parent="1" source="comp1" target="comp4" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="cr6" value="Передаёт показатели анализов" style="html=1;endArrow=block;fontSize=10;" parent="1" source="comp3" target="comp4" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="cr7" value="1. Semantic search [gRPC]" style="html=1;endArrow=block;fontSize=10;" parent="1" source="comp4" target="ext2" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="cr8" value="2. Передаёт контекст" style="html=1;endArrow=block;fontSize=10;" parent="1" source="comp4" target="comp5" edge="1">
+                    <mxGeometry y="25" relative="1" as="geometry">
+                        <mxPoint as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="cr9" value="3. Передаёт готовый промпт" style="html=1;endArrow=block;fontSize=10;" parent="1" source="comp5" target="comp6" edge="1">
+                    <mxGeometry y="35" relative="1" as="geometry">
+                        <mxPoint as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="cr10" value="4. Запрос генерации [External API]" style="html=1;endArrow=block;fontSize=10;" parent="1" source="comp6" target="ext3" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="cr11" value="5. Возвращает сырой ответ" style="html=1;endArrow=block;fontSize=10;" parent="1" source="comp6" target="comp7" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="cr12" value="6. Возвращает итоговую рекомендацию" style="html=1;endArrow=block;fontSize=10;" parent="1" source="comp7" target="ext1" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
 </mxfile>

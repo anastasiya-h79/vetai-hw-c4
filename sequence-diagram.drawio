@@ -1,141 +1,72 @@
 <mxfile host="app.diagrams.net">
   <diagram name="Sequence - Get Recommendation" id="seqdiagram">
-    <mxGraphModel dx="1600" dy="800" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="700" math="0" shadow="0">
+    <mxGraphModel dx="1700" dy="900" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1700" pageHeight="800" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
 
         <!-- Actor headers -->
-        <mxCell id="h1" value="Text Symptom&lt;br&gt;Controller" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#85bbf0;strokeColor=#5b96d2;fontSize=11;" vertex="1" parent="1">
+        <mxCell id="h0" value="Backend" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#1168bd;strokeColor=#0b4884;fontColor=#ffffff;fontSize=11;" vertex="1" parent="1">
           <mxGeometry x="40" y="40" width="140" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="h2" value="RAG Manager" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#85bbf0;strokeColor=#5b96d2;fontSize=11;" vertex="1" parent="1">
+        <mxCell id="ht" value="Triage Service" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#c0392b;strokeColor=#8e2418;fontColor=#ffffff;fontSize=11;" vertex="1" parent="1">
           <mxGeometry x="220" y="40" width="140" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="h3" value="Vector DB" style="shape=cylinder3;whiteSpace=wrap;html=1;fillColor=#438dd5;strokeColor=#2e6295;fontColor=#ffffff;fontSize=11;" vertex="1" parent="1">
+        <mxCell id="h1" value="Text Symptom&lt;br&gt;Controller" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#85bbf0;strokeColor=#5b96d2;fontSize=11;" vertex="1" parent="1">
           <mxGeometry x="400" y="40" width="140" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="h4" value="Prompt Template&lt;br&gt;Factory" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#85bbf0;strokeColor=#5b96d2;fontSize=11;" vertex="1" parent="1">
+        <mxCell id="h2" value="RAG Manager" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#85bbf0;strokeColor=#5b96d2;fontSize=11;" vertex="1" parent="1">
           <mxGeometry x="580" y="40" width="140" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="h5" value="LLM Client" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#85bbf0;strokeColor=#5b96d2;fontSize=11;" vertex="1" parent="1">
+        <mxCell id="h3" value="Vector DB" style="shape=cylinder3;whiteSpace=wrap;html=1;fillColor=#438dd5;strokeColor=#2e6295;fontColor=#ffffff;fontSize=11;" vertex="1" parent="1">
           <mxGeometry x="760" y="40" width="140" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="h6" value="LLM Provider" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#999999;strokeColor=#6c6c6c;fontColor=#ffffff;fontSize=11;" vertex="1" parent="1">
+        <mxCell id="h4" value="Prompt Template&lt;br&gt;Factory" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#85bbf0;strokeColor=#5b96d2;fontSize=11;" vertex="1" parent="1">
           <mxGeometry x="940" y="40" width="140" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="h7" value="Diagnosis&lt;br&gt;Aggregator" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#85bbf0;strokeColor=#5b96d2;fontSize=11;" vertex="1" parent="1">
+        <mxCell id="h5" value="LLM Client" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#85bbf0;strokeColor=#5b96d2;fontSize=11;" vertex="1" parent="1">
           <mxGeometry x="1120" y="40" width="140" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="h8" value="Backend" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#1168bd;strokeColor=#0b4884;fontColor=#ffffff;fontSize=11;" vertex="1" parent="1">
+        <mxCell id="h6" value="LLM Provider" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#999999;strokeColor=#6c6c6c;fontColor=#ffffff;fontSize=11;" vertex="1" parent="1">
           <mxGeometry x="1300" y="40" width="140" height="60" as="geometry" />
         </mxCell>
-
-        <!-- Lifelines (dashed vertical) -->
-        <mxCell id="l1" style="html=1;dashed=1;endArrow=none;startArrow=none;strokeColor=#999999;" edge="1" parent="1">
-          <mxGeometry relative="1" as="geometry">
-            <mxPoint x="110" y="100" as="sourcePoint" />
-            <mxPoint x="110" y="620" as="targetPoint" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="l2" style="html=1;dashed=1;endArrow=none;startArrow=none;strokeColor=#999999;" edge="1" parent="1">
-          <mxGeometry relative="1" as="geometry">
-            <mxPoint x="290" y="100" as="sourcePoint" />
-            <mxPoint x="290" y="620" as="targetPoint" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="l3" style="html=1;dashed=1;endArrow=none;startArrow=none;strokeColor=#999999;" edge="1" parent="1">
-          <mxGeometry relative="1" as="geometry">
-            <mxPoint x="470" y="100" as="sourcePoint" />
-            <mxPoint x="470" y="620" as="targetPoint" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="l4" style="html=1;dashed=1;endArrow=none;startArrow=none;strokeColor=#999999;" edge="1" parent="1">
-          <mxGeometry relative="1" as="geometry">
-            <mxPoint x="650" y="100" as="sourcePoint" />
-            <mxPoint x="650" y="620" as="targetPoint" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="l5" style="html=1;dashed=1;endArrow=none;startArrow=none;strokeColor=#999999;" edge="1" parent="1">
-          <mxGeometry relative="1" as="geometry">
-            <mxPoint x="830" y="100" as="sourcePoint" />
-            <mxPoint x="830" y="620" as="targetPoint" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="l6" style="html=1;dashed=1;endArrow=none;startArrow=none;strokeColor=#999999;" edge="1" parent="1">
-          <mxGeometry relative="1" as="geometry">
-            <mxPoint x="1010" y="100" as="sourcePoint" />
-            <mxPoint x="1010" y="620" as="targetPoint" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="l7" style="html=1;dashed=1;endArrow=none;startArrow=none;strokeColor=#999999;" edge="1" parent="1">
-          <mxGeometry relative="1" as="geometry">
-            <mxPoint x="1190" y="100" as="sourcePoint" />
-            <mxPoint x="1190" y="620" as="targetPoint" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="l8" style="html=1;dashed=1;endArrow=none;startArrow=none;strokeColor=#999999;" edge="1" parent="1">
-          <mxGeometry relative="1" as="geometry">
-            <mxPoint x="1370" y="100" as="sourcePoint" />
-            <mxPoint x="1370" y="620" as="targetPoint" />
-          </mxGeometry>
+        <mxCell id="h7" value="Diagnosis&lt;br&gt;Aggregator" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#85bbf0;strokeColor=#5b96d2;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="1480" y="40" width="140" height="60" as="geometry" />
         </mxCell>
 
-        <!-- Steps (solid = call, dashed = return) -->
-        <mxCell id="s1" value="1. Симптомы переданы" style="html=1;endArrow=block;fontSize=10;" edge="1" parent="1">
-          <mxGeometry relative="1" as="geometry">
-            <mxPoint x="110" y="140" as="sourcePoint" />
-            <mxPoint x="290" y="140" as="targetPoint" />
-          </mxGeometry>
+        <!-- Lifelines -->
+        <mxCell id="l0" style="html=1;dashed=1;endArrow=none;startArrow=none;strokeColor=#999999;" edge="1" parent="1"><mxGeometry relative="1" as="geometry"><mxPoint x="110" y="100" as="sourcePoint" /><mxPoint x="110" y="700" as="targetPoint" /></mxGeometry></mxCell>
+        <mxCell id="lt" style="html=1;dashed=1;endArrow=none;startArrow=none;strokeColor=#999999;" edge="1" parent="1"><mxGeometry relative="1" as="geometry"><mxPoint x="290" y="100" as="sourcePoint" /><mxPoint x="290" y="700" as="targetPoint" /></mxGeometry></mxCell>
+        <mxCell id="l1" style="html=1;dashed=1;endArrow=none;startArrow=none;strokeColor=#999999;" edge="1" parent="1"><mxGeometry relative="1" as="geometry"><mxPoint x="470" y="100" as="sourcePoint" /><mxPoint x="470" y="700" as="targetPoint" /></mxGeometry></mxCell>
+        <mxCell id="l2" style="html=1;dashed=1;endArrow=none;startArrow=none;strokeColor=#999999;" edge="1" parent="1"><mxGeometry relative="1" as="geometry"><mxPoint x="650" y="100" as="sourcePoint" /><mxPoint x="650" y="700" as="targetPoint" /></mxGeometry></mxCell>
+        <mxCell id="l3" style="html=1;dashed=1;endArrow=none;startArrow=none;strokeColor=#999999;" edge="1" parent="1"><mxGeometry relative="1" as="geometry"><mxPoint x="830" y="100" as="sourcePoint" /><mxPoint x="830" y="700" as="targetPoint" /></mxGeometry></mxCell>
+        <mxCell id="l4" style="html=1;dashed=1;endArrow=none;startArrow=none;strokeColor=#999999;" edge="1" parent="1"><mxGeometry relative="1" as="geometry"><mxPoint x="1010" y="100" as="sourcePoint" /><mxPoint x="1010" y="700" as="targetPoint" /></mxGeometry></mxCell>
+        <mxCell id="l5" style="html=1;dashed=1;endArrow=none;startArrow=none;strokeColor=#999999;" edge="1" parent="1"><mxGeometry relative="1" as="geometry"><mxPoint x="1190" y="100" as="sourcePoint" /><mxPoint x="1190" y="700" as="targetPoint" /></mxGeometry></mxCell>
+        <mxCell id="l6" style="html=1;dashed=1;endArrow=none;startArrow=none;strokeColor=#999999;" edge="1" parent="1"><mxGeometry relative="1" as="geometry"><mxPoint x="1370" y="100" as="sourcePoint" /><mxPoint x="1370" y="700" as="targetPoint" /></mxGeometry></mxCell>
+        <mxCell id="l7" style="html=1;dashed=1;endArrow=none;startArrow=none;strokeColor=#999999;" edge="1" parent="1"><mxGeometry relative="1" as="geometry"><mxPoint x="1550" y="100" as="sourcePoint" /><mxPoint x="1550" y="700" as="targetPoint" /></mxGeometry></mxCell>
+
+        <!-- Step 0: Triage check (critical addition) -->
+        <mxCell id="s0" value="0. Проверка на red flag" style="html=1;endArrow=block;fontSize=10;strokeColor=#c0392b;fontColor=#c0392b;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="110" y="140" as="sourcePoint" /><mxPoint x="290" y="140" as="targetPoint" /></mxGeometry>
         </mxCell>
-        <mxCell id="s2" value="2. Semantic search по протоколам" style="html=1;endArrow=block;fontSize=10;" edge="1" parent="1">
-          <mxGeometry relative="1" as="geometry">
-            <mxPoint x="290" y="190" as="sourcePoint" />
-            <mxPoint x="470" y="190" as="targetPoint" />
-          </mxGeometry>
+        <mxCell id="note" value="Если red flag найден — Triage Service сразу возвращает emergency-сообщение в Backend, дальнейшие шаги НЕ выполняются" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fdecea;strokeColor=#c0392b;fontColor=#8e2418;fontSize=10;fontStyle=2;" vertex="1" parent="1">
+          <mxGeometry x="220" y="170" width="300" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="s3" value="3. Возврат top-k чанков" style="html=1;endArrow=block;dashed=1;fontSize=10;" edge="1" parent="1">
-          <mxGeometry relative="1" as="geometry">
-            <mxPoint x="470" y="240" as="sourcePoint" />
-            <mxPoint x="290" y="240" as="targetPoint" />
-          </mxGeometry>
+        <mxCell id="s0b" value="0b. Нет red flag — продолжаем" style="html=1;endArrow=block;dashed=1;fontSize=10;strokeColor=#c0392b;fontColor=#c0392b;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="290" y="250" as="sourcePoint" /><mxPoint x="110" y="250" as="targetPoint" /></mxGeometry>
         </mxCell>
-        <mxCell id="s4" value="4. Передача контекста" style="html=1;endArrow=block;fontSize=10;" edge="1" parent="1">
-          <mxGeometry relative="1" as="geometry">
-            <mxPoint x="290" y="290" as="sourcePoint" />
-            <mxPoint x="650" y="290" as="targetPoint" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="s5" value="5. Готовый промпт" style="html=1;endArrow=block;fontSize=10;" edge="1" parent="1">
-          <mxGeometry relative="1" as="geometry">
-            <mxPoint x="650" y="340" as="sourcePoint" />
-            <mxPoint x="830" y="340" as="targetPoint" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="s6" value="6. Запрос генерации" style="html=1;endArrow=block;fontSize=10;" edge="1" parent="1">
-          <mxGeometry relative="1" as="geometry">
-            <mxPoint x="830" y="390" as="sourcePoint" />
-            <mxPoint x="1010" y="390" as="targetPoint" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="s7" value="7. Ответ модели" style="html=1;endArrow=block;dashed=1;fontSize=10;" edge="1" parent="1">
-          <mxGeometry relative="1" as="geometry">
-            <mxPoint x="1010" y="440" as="sourcePoint" />
-            <mxPoint x="830" y="440" as="targetPoint" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="s8" value="8. Сырой ответ" style="html=1;endArrow=block;fontSize=10;" edge="1" parent="1">
-          <mxGeometry relative="1" as="geometry">
-            <mxPoint x="830" y="490" as="sourcePoint" />
-            <mxPoint x="1190" y="490" as="targetPoint" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="s9" value="9. Финальная рекомендация" style="html=1;endArrow=block;fontSize=10;" edge="1" parent="1">
-          <mxGeometry relative="1" as="geometry">
-            <mxPoint x="1190" y="540" as="sourcePoint" />
-            <mxPoint x="1370" y="540" as="targetPoint" />
-          </mxGeometry>
-        </mxCell>
+
+        <!-- Steps -->
+        <mxCell id="s1" value="1. Симптомы переданы" style="html=1;endArrow=block;fontSize=10;" edge="1" parent="1"><mxGeometry relative="1" as="geometry"><mxPoint x="110" y="300" as="sourcePoint" /><mxPoint x="470" y="300" as="targetPoint" /></mxGeometry></mxCell>
+        <mxCell id="s2" value="2. Semantic search по протоколам" style="html=1;endArrow=block;fontSize=10;" edge="1" parent="1"><mxGeometry relative="1" as="geometry"><mxPoint x="470" y="340" as="sourcePoint" /><mxPoint x="650" y="340" as="targetPoint" /></mxGeometry></mxCell>
+        <mxCell id="s3" value="3. Возврат top-k чанков" style="html=1;endArrow=block;dashed=1;fontSize=10;" edge="1" parent="1"><mxGeometry relative="1" as="geometry"><mxPoint x="650" y="380" as="sourcePoint" /><mxPoint x="470" y="380" as="targetPoint" /></mxGeometry></mxCell>
+        <mxCell id="s4" value="4. Передача контекста" style="html=1;endArrow=block;fontSize=10;" edge="1" parent="1"><mxGeometry relative="1" as="geometry"><mxPoint x="470" y="420" as="sourcePoint" /><mxPoint x="830" y="420" as="targetPoint" /></mxGeometry></mxCell>
+        <mxCell id="s5" value="5. Готовый промпт" style="html=1;endArrow=block;fontSize=10;" edge="1" parent="1"><mxGeometry relative="1" as="geometry"><mxPoint x="830" y="460" as="sourcePoint" /><mxPoint x="1010" y="460" as="targetPoint" /></mxGeometry></mxCell>
+        <mxCell id="s6" value="6. Запрос генерации" style="html=1;endArrow=block;fontSize=10;" edge="1" parent="1"><mxGeometry relative="1" as="geometry"><mxPoint x="1010" y="500" as="sourcePoint" /><mxPoint x="1190" y="500" as="targetPoint" /></mxGeometry></mxCell>
+        <mxCell id="s7" value="7. Ответ модели" style="html=1;endArrow=block;dashed=1;fontSize=10;" edge="1" parent="1"><mxGeometry relative="1" as="geometry"><mxPoint x="1190" y="540" as="sourcePoint" /><mxPoint x="1010" y="540" as="targetPoint" /></mxGeometry></mxCell>
+        <mxCell id="s8" value="8. Сырой ответ" style="html=1;endArrow=block;fontSize=10;" edge="1" parent="1"><mxGeometry relative="1" as="geometry"><mxPoint x="1010" y="580" as="sourcePoint" /><mxPoint x="1370" y="580" as="targetPoint" /></mxGeometry></mxCell>
+        <mxCell id="s9" value="9. Финальная рекомендация" style="html=1;endArrow=block;fontSize=10;" edge="1" parent="1"><mxGeometry relative="1" as="geometry"><mxPoint x="1370" y="620" as="sourcePoint" /><mxPoint x="1550" y="620" as="targetPoint" /></mxGeometry></mxCell>
+        <mxCell id="s10" value="10. Возвращает итоговую рекомендацию" style="html=1;endArrow=block;fontSize=10;" edge="1" parent="1"><mxGeometry relative="1" as="geometry"><mxPoint x="1550" y="660" as="sourcePoint" /><mxPoint x="110" y="660" as="targetPoint" /></mxGeometry></mxCell>
 
       </root>
     </mxGraphModel>
